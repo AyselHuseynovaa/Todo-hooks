@@ -1,9 +1,9 @@
   
-import {useEffect, useState} from "react";
+import {useEffect, useReducer} from "react";
 
-export default function useLocalStorageState(key, defaultValue) {
+function useLocalStorageState(key, defaultValue,reducer) {
 
-    const [state, setState] = useState(() => {
+    const [state, dispatch] = useState(defaultValue,reducer, () => {
         let value;
 
         try {
@@ -18,5 +18,6 @@ export default function useLocalStorageState(key, defaultValue) {
         window.localStorage.setItem(key, JSON.stringify(state))
     }, [state])
 
-    return [state, setState]
+    return [state, dispatch]
 }
+export {useLocalStorageState}
